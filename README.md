@@ -20,7 +20,7 @@ Frontend (React)
     ▼
 Backend (PHP / Symfony)
     │
-    │
+    │ REST API
     ▼
 Scraper / Processor (Python)
 ```
