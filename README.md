@@ -20,7 +20,7 @@ Frontend (React)
     ▼
 Backend (PHP / Symfony)
     │
-    │ RabbitMQ / Kafka
+    │
     ▼
 Scraper / Processor (Python)
 ```
@@ -58,8 +58,6 @@ docker compose up -d
 | Фронт               | http://localhost:3000 |
 | API                 | http://localhost:8000/api |
 | MeiliSearch         | http://localhost:7700 |
-| RabbitMQ / Kafka UI | http://localhost:15672 |
-
 ## Структура проекта
 
 ```
