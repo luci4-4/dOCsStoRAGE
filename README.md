@@ -32,7 +32,6 @@ Scraper / Processor (Python)
 | Скрейпер | Python, Scrapy, BeautifulSoup, Pandoc, markdownify      |
 | БД | PostgreSQL                                              |
 | Поиск | MeiliSearch                                             |
-| Очередь | RabbitMQ / Kafka                                        |
 
 ## Поддерживаемые форматы
 
