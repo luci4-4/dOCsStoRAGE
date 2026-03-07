@@ -71,3 +71,4 @@ dochub/
 ## Лицензия
 
 MIT
+<img width="824" height="876" alt="image" src="https://github.com/user-attachments/assets/45034160-be13-4c2c-ba8b-47b8a717ef67" />
