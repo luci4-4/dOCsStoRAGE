@@ -1,0 +1,49 @@
+{
+  "name": "docstorage/backend",
+  "description": "DocStorage API backend",
+  "type": "project",
+  "require": {
+    "php": ">=8.3",
+    "ext-pdo": "*",
+    "symfony/framework-bundle": "7.2.*",
+    "symfony/runtime": "7.2.*",
+    "symfony/dotenv": "7.2.*",
+    "symfony/yaml": "7.2.*",
+    "symfony/security-bundle": "7.2.*",
+    "symfony/maker-bundle": "1.60.*",
+    "doctrine/orm": "3.2.*",
+    "doctrine/doctrine-bundle": "2.12.*",
+    "lexik/jwt-authentication-bundle": "3.1.*",
+    "nelmio/cors-bundle": "2.5.*",
+    "symfony/serializer": "7.2.*",
+    "symfony/validator": "7.2.*",
+    "symfony/password-hasher": "7.2.*",
+    "meilisearch/meilisearch-php": "1.9.*",
+    "symfony/uid": "7.2.*",
+    "symfony/http-client": "7.2.*",
+    "nyholm/psr7": "^1.8",
+    "symfony/mime": "^7.4"
+  },
+  "autoload": {
+    "psr-4": { "App\\": "src/" }
+  },
+  "scripts": {
+    "auto-scripts": {
+      "cache:clear": "symfony-cmd",
+      "assets:install %PUBLIC_DIR%": "symfony-cmd"
+    },
+    "post-install-cmd": [],
+    "post-update-cmd": []
+  },
+  "extra": {
+    "symfony": { "allow-contrib": false, "require": "7.2.*" }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true,
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true,
+      "symfony/runtime": true
+    }
+  }
+}

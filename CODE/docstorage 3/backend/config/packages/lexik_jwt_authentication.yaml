@@ -1,0 +1,6 @@
+lexik_jwt_authentication:
+  secret_key: /var/www/html/config/jwt/private.pem
+  public_key: /var/www/html/config/jwt/public.pem
+  pass_phrase: ''
+  token_ttl: 3600
+  user_id_claim: username

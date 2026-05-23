@@ -1,0 +1,11 @@
+nelmio_cors:
+  defaults:
+    allow_credentials: false
+    origin_regex: false
+    allow_origin: ['*']
+    allow_headers: ['Content-Type', 'Authorization']
+    allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+    max_age: 3600
+  paths:
+    '^/api/': ~
+    '^/login_check': ~

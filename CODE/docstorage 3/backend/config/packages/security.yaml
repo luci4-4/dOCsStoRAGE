@@ -1,0 +1,53 @@
+security:
+  role_hierarchy:
+    ROLE_ADMIN: [ROLE_CONTENT_MANAGER, ROLE_USER]
+    ROLE_CONTENT_MANAGER: [ROLE_USER]
+
+  password_hashers:
+    App\Entity\User:
+      algorithm: bcrypt
+
+  providers:
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: username
+
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+
+    login:
+      pattern: ^/api/login_check
+      stateless: true
+      provider: app_user_provider
+      user_checker: App\Security\UserChecker
+      json_login:
+        check_path: /api/login_check
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+    api:
+      pattern: ^/api
+      stateless: true
+      provider: app_user_provider
+      user_checker: App\Security\UserChecker
+      jwt: ~
+
+  access_control:
+    - { path: ^/api/register, roles: PUBLIC_ACCESS }
+    - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
+    - { path: ^/api/search, roles: PUBLIC_ACCESS }
+    - { path: ^/api/docs/.+/tags, roles: ROLE_CONTENT_MANAGER, methods: [PUT] }
+    - { path: ^/api/docs, roles: PUBLIC_ACCESS }
+    - { path: ^/api/notes, roles: ROLE_USER }
+    - { path: ^/api/favorites, roles: ROLE_USER }
+    - { path: ^/api/history, roles: ROLE_USER }
+    - { path: ^/api/profile, roles: ROLE_USER }
+    - { path: ^/api/documents, roles: ROLE_USER }
+    - { path: ^/api/export, roles: ROLE_USER }
+    - { path: ^/api/sources, roles: ROLE_CONTENT_MANAGER }
+    - { path: ^/api/tags$, roles: PUBLIC_ACCESS, methods: [GET] }
+    - { path: ^/api/tags, roles: ROLE_CONTENT_MANAGER }
+    - { path: ^/api/admin, roles: ROLE_ADMIN }

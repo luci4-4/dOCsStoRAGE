@@ -1,0 +1,74 @@
+services:
+  frontend:
+    build: ./frontend
+    container_name: docstorage_frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: docstorage_backend
+    ports:
+      - "8000:80"
+    environment:
+      APP_ENV: dev
+      APP_DEBUG: "1"
+      APP_SECRET: docstorage_app_secret_key
+      DATABASE_URL: "postgresql://docstorage:docstorage@postgres:5432/docstorage?serverVersion=16"
+      MEILISEARCH_URL: http://meilisearch:7700
+      MEILISEARCH_KEY: docstorage_master_key
+      SCRAPER_URL: http://scraper:8001
+      JWT_SECRET_KEY: "%kernel.project_dir%/config/jwt/private.pem"
+      JWT_PUBLIC_KEY: "%kernel.project_dir%/config/jwt/public.pem"
+      JWT_PASSPHRASE: ""
+      JWT_TTL: "3600"
+    depends_on:
+      - postgres
+      - meilisearch
+    volumes:
+      - ./backend/config/jwt:/var/www/html/config/jwt:ro
+      - uploads_data:/var/www/html/var/uploads
+    restart: unless-stopped
+
+  scraper:
+    build: ./scraper
+    container_name: docstorage_scraper
+    ports:
+      - "8001:8001"
+    environment:
+      MEILISEARCH_URL: http://meilisearch:7700
+      MEILISEARCH_KEY: docstorage_master_key
+    restart: unless-stopped
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.7
+    container_name: docstorage_meili
+    ports:
+      - "7700:7700"
+    environment:
+      MEILI_MASTER_KEY: docstorage_master_key
+      MEILI_ENV: production
+    volumes:
+      - meili_data:/meili_data
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: docstorage_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: docstorage
+      POSTGRES_USER: docstorage
+      POSTGRES_PASSWORD: docstorage
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  meili_data:
+  pg_data:
+  uploads_data:
